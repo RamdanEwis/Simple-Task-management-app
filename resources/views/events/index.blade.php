@@ -14,14 +14,14 @@
 @section('content')
 
     <!-- Modal -->
-    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <div class="modal-body">
-                    <label for="start_date" class="form-label">name</label>
-                    <input type="text" class="form-control" id="name">
-                    <span id="nameError" class="text-danger"></span>
+                    <label for="summary" class="form-label">summary</label>
+                    <input type="text" class="form-control" id="summary">
+                    <span id="summaryError" class="text-danger"></span>
                 </div>
 
                 <div class="modal-body">
@@ -69,7 +69,7 @@
                 }
             });
 
-            var booking = @json($events);
+            var event = @json($events);
 
             $('#calendar').fullCalendar({
                 header: {
@@ -77,14 +77,14 @@
                     center: 'title',
                     right: 'month, agendaWeek, agendaDay',
                 },
-                events: booking,
+                events: event,
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, allDays) {
-                    $('#bookingModal').modal('toggle');
+                    $('#eventModal').modal('toggle');
 
                     $('#saveBtn').click(function() {
-                        var name = $('#name').val();
+                        var summary = $('#summary').val();
                         var description = $('#description').val();
                         var start_date = moment(start).format('YYYY-MM-DD');
                         var end_date = moment(end).format('YYYY-MM-DD');
@@ -93,12 +93,12 @@
                             url:"{{ route('events.store') }}",
                             type:"POST",
                             dataType:'json',
-                            data:{ name,description, start_date, end_date  },
+                            data:{ summary,description, start_date, end_date  },
                             success:function(response)
                             {
-                                $('#bookingModal').modal('hide')
+                                $('#eventModal').modal('hide')
                                 $('#calendar').fullCalendar('renderEvent', {
-                                    'name': response.name,
+                                    'summary': response.summary,
                                     'start' : response.start,
                                     'end'  : response.end,
                                     'description' : response.description
@@ -108,7 +108,7 @@
                             error:function(error)
                             {
                                 if(error.responseJSON.errors) {
-                                    $('#nameError').html(error.responseJSON.errors.name);
+                                    $('#summaryError').html(error.responseJSON.errors.summary);
                                     $('#descriptionError').html(error.responseJSON.errors.description);
                                 }
                             },
@@ -167,7 +167,7 @@
             });
 
 
-            $("#bookingModal").on("hidden.bs.modal", function () {
+            $("#eventModal").on("hidden.bs.modal", function () {
                 $('#saveBtn').unbind();
             });
 

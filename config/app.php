@@ -18,6 +18,12 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'google_calendar_id' => env('GOOGLE_CALENDAR_ID'),
+    'google_application_name' => env('GOOGLE_CALENDAR_APP_NAME'),
+    'google_client_id' => env('GOOGLE_CLIENT_ID'),
+    'google_client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    'google_redirect_uri' => env('GOOGLE_REDIRECT_URI'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -169,7 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\GoogleCalendar\GoogleCalendarServiceProvider::class,
-
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -186,6 +193,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'GoogleCalendar' => Spatie\GoogleCalendar\GoogleCalendarFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+
     ])->toArray(),
 
 ];

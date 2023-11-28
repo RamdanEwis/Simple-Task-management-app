@@ -2,6 +2,7 @@
 namespace App\Services;
 use App\Models\Event;
 use Spatie\GoogleCalendar\Event as GoogleCalendarEvent;
+
 class EventService
 {
 public function createLocalEvent(array $data)

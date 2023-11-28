@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GoogleCalendarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // events routes
 Route::resource('events',EventController::class)->middleware('auth');
+//google/callback
+
+/*Route::get('/authorize-google-calendar', [GoogleCalendarController::class,'authorize']);
+Route::get('/authorize-google-calendar/callback', [GoogleCalendarController::class,'handleCallback']);*/
+
+Route::get('authenticate', [GoogleCalendarController::class,'authenticate']);
+Route::get('oauth/callback', [GoogleCalendarController::class,'callback']);
+Route::get('calendar/list', [GoogleCalendarController::class,'listEvents'])->name('calendar.list');

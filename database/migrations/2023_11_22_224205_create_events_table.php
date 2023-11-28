@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->dateTime('end_date')->nullable();
             $table->string('status')->nullable();
             $table->string('description')->nullable();
-            $table->string('name')->nullable();
+            $table->string('summary')->nullable();
             $table->string('event_id')->nullable();
             $table->timestamps();
         });

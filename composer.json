@@ -6,14 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "google/apiclient": "^2.15.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
-        "spatie/laravel-google-calendar": "^3.7"
+        "spatie/laravel-google-calendar": "^3.7",
+        "tymon/jwt-auth": "^2.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.9",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
@@ -27,7 +30,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/globalFunctions.php",
+            "app/Helpers/jsonResponses.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

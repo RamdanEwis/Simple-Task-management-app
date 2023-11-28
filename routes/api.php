@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\EventController;
+use App\Http\Middleware\ForceJsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+
+Route::middleware([ForceJsonResponse::class])->group(function () {
+    Route::post('login', [App\Http\Controllers\API\AuthController::class, 'login']);
+    Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register']);
+    Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+    Route::post('/refresh', [App\Http\Controllers\API\AuthController::class, 'refresh']);
+
+});
+
+
+Route::middleware([ForceJsonResponse::class,'auth:api'])->group(function () {
+    Route::apiResource('events', EventController::class)->names('events.api');;
 });
